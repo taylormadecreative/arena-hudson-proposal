@@ -267,6 +267,53 @@ p.lede { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 720p
 }
 
 /* ═══════════════════════════════════ */
+/* ═══════════ MEET ARENA (PHOTO GALLERY) ═══════════ */
+/* ═══════════════════════════════════ */
+.gallery-section {
+  background: var(--cream);
+  padding: 130px 48px;
+}
+.gallery-section .head { text-align: center; margin-bottom: 70px; }
+.gallery-section .eyebrow { justify-content: center; }
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.1fr;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.photo-grid .cell {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  transition: transform 400ms cubic-bezier(.16,1,.3,1);
+  box-shadow: 0 20px 50px rgba(26,26,26,0.12);
+}
+.photo-grid .cell:hover { transform: translateY(-8px); }
+.photo-grid .cell:nth-child(1) { transform: rotate(-1deg); }
+.photo-grid .cell:nth-child(2) { transform: translateY(40px); }
+.photo-grid .cell:nth-child(3) { transform: rotate(1deg); }
+.photo-grid .cell:hover:nth-child(1) { transform: rotate(-1deg) translateY(-8px); }
+.photo-grid .cell:hover:nth-child(2) { transform: translateY(32px); }
+.photo-grid .cell:hover:nth-child(3) { transform: rotate(1deg) translateY(-8px); }
+.photo-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-grid .tag {
+  position: absolute;
+  bottom: 16px; left: 16px;
+  padding: 8px 14px;
+  background: rgba(14,14,14,0.72);
+  backdrop-filter: blur(8px);
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 2px;
+}
+
+/* ═══════════════════════════════════ */
 /* ═══════════ PITCH QUOTE ═══════════ */
 /* ═══════════════════════════════════ */
 .pitch { background: var(--cream); padding: 120px 48px; }
@@ -548,11 +595,7 @@ p.lede { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 720p
   position: relative;
   overflow: hidden;
 }
-.location-card::before {
-  content: ''; position: absolute;
-  top: -240px; right: -240px; width: 560px; height: 560px;
-  background: radial-gradient(circle, rgba(217,117,133,0.22) 0%, transparent 60%);
-}
+/* (decorative circle removed) */
 .location-card > * { position: relative; z-index: 1; }
 .location-card h3 { color: var(--cream); }
 .location-card .small-label {
@@ -624,11 +667,7 @@ p.lede { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 720p
   position: relative;
   overflow: hidden;
 }
-.invest::before {
-  content: ''; position: absolute;
-  top: -320px; left: -320px; width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(217,117,133,0.22) 0%, transparent 60%);
-}
+/* (decorative circle removed) */
 .invest h2 { color: var(--cream); }
 .invest .eyebrow { color: var(--coral); }
 .invest .eyebrow::before { background: var(--coral); }
@@ -780,12 +819,7 @@ p.lede { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 720p
   position: relative;
   overflow: hidden;
 }
-.cta-section::after {
-  content: ''; position: absolute;
-  bottom: -280px; right: -280px; width: 760px; height: 760px;
-  border: 100px solid rgba(248,243,236,0.16);
-  border-radius: 50%;
-}
+/* (decorative circle removed) */
 .cta-section h2 { color: var(--cream); font-size: clamp(48px, 6.5vw, 100px); max-width: 900px; margin: 0 auto; }
 .cta-section p { color: rgba(248,243,236,0.92); font-size: 20px; max-width: 600px; margin: 30px auto 0; }
 .cta-section .actions {
@@ -856,6 +890,8 @@ footer em { color: var(--coral); font-style: normal; font-weight: 800; }
   .invest .price-block { grid-template-columns: 1fr; gap: 36px; }
   .carousel-scroll img { width: 300px; height: 375px; }
   .cta-section .actions .btn { width: 100%; justify-content: center; }
+  .photo-grid { grid-template-columns: 1fr; gap: 16px; }
+  .photo-grid .cell { transform: none !important; aspect-ratio: 4/5; }
 }
 </style>
 </head>
@@ -894,6 +930,29 @@ footer em { color: var(--coral); font-style: normal; font-weight: 800; }
           <span>TAP FOR SOUND</span>
         </button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MEET ARENA — PHOTO GALLERY ═══ -->
+<section class="gallery-section">
+  <div class="head reveal">
+    <div class="eyebrow">On-brand, every frame</div>
+    <h2 style="margin-top: 22px;">The look. <em>The feel.</em></h2>
+    <p class="lede" style="margin: 28px auto 0;">Editorial, polished, unmistakably you. Every shot graded to your brand — warm, confident, luxury-realtor-meets-magazine-cover.</p>
+  </div>
+  <div class="photo-grid">
+    <div class="cell reveal">
+      <img src="assets/arena-editorial-1.jpg" alt="Arena editorial portrait" loading="lazy"/>
+      <div class="tag">Editorial</div>
+    </div>
+    <div class="cell reveal d1">
+      <img src="assets/arena-smile.jpg" alt="Arena smiling portrait" loading="lazy"/>
+      <div class="tag">Lifestyle</div>
+    </div>
+    <div class="cell reveal d2">
+      <img src="assets/arena-seated.jpg" alt="Arena seated portrait" loading="lazy"/>
+      <div class="tag">At Work</div>
     </div>
   </div>
 </section>
