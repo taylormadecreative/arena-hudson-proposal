@@ -68,7 +68,7 @@ img, video { max-width: 100%; display: block; }
 }
 .nav .credit em { color: var(--ink); font-style: normal; font-weight: 800; }
 
-section { padding: 130px 48px; position: relative; }
+section { padding: 130px 48px; position: relative; overflow-x: hidden; }
 .container { max-width: 1280px; margin: 0 auto; }
 .narrow { max-width: 960px; margin: 0 auto; }
 
@@ -375,6 +375,93 @@ p.lede { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 720p
 }
 
 /* ═══════════════════════════════════ */
+/* ═══════════ TIMELINE ═══════════ */
+/* ═══════════════════════════════════ */
+.timeline-section {
+  background: var(--cream);
+  padding: 130px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.timeline-section .head { text-align: center; margin-bottom: 90px; }
+.timeline-section .eyebrow { justify-content: center; }
+.timeline-grid {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  padding-left: 110px;
+}
+.timeline-grid::before {
+  content: ''; position: absolute;
+  left: 64px; top: 30px; bottom: 30px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--coral) 0%, var(--coral-dark) 50%, transparent 100%);
+}
+.tl-row {
+  display: grid;
+  grid-template-columns: 0 1fr;
+  gap: 40px;
+  margin-bottom: 50px;
+  position: relative;
+}
+.tl-row:last-child { margin-bottom: 0; }
+.tl-row .time {
+  position: absolute;
+  left: -110px;
+  top: 0;
+  width: 90px;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--coral);
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+.tl-row::before {
+  content: '';
+  position: absolute;
+  left: -52px;
+  top: 14px;
+  width: 18px;
+  height: 18px;
+  background: var(--cream);
+  border: 4px solid var(--coral);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(217,117,133,0.12);
+}
+.tl-row .body h4 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.tl-row .body .desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-weight: 400;
+}
+.tl-row .body .tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 12px;
+}
+.tl-row .body .tag-pill {
+  font-size: 10px;
+  padding: 5px 12px;
+  background: rgba(217,117,133,0.12);
+  color: var(--coral-dark);
+  border-radius: 100px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════ */
 /* ═══════════ CONTENT DAY ═══════════ */
 /* ═══════════════════════════════════ */
 .content-day { background: var(--cream); padding: 130px 48px; }
@@ -616,6 +703,73 @@ p.lede { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 720p
 }
 
 /* ═══════════════════════════════════ */
+/* ═══════════ STICKY CTA ═══════════ */
+/* ═══════════════════════════════════ */
+.sticky-cta {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--coral);
+  color: var(--cream);
+  padding: 16px 24px;
+  z-index: 60;
+  display: none;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.18);
+  transform: translateY(100%);
+  transition: transform 400ms cubic-bezier(.16,1,.3,1);
+}
+.sticky-cta.show { transform: translateY(0); }
+.sticky-cta .row {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+.sticky-cta .left {
+  display: flex; flex-direction: column; gap: 2px;
+  min-width: 0;
+}
+.sticky-cta .label {
+  font-size: 10px; letter-spacing: 0.28em;
+  text-transform: uppercase; font-weight: 800;
+  opacity: 0.85;
+}
+.sticky-cta .value {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sticky-cta .btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 26px;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 800;
+  text-decoration: none;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 200ms;
+}
+.sticky-cta .btn:hover { transform: translateY(-2px); }
+.sticky-cta .btn .arrow { font-size: 16px; color: var(--coral); }
+@media (max-width: 600px) {
+  .sticky-cta .value { font-size: 16px; }
+  .sticky-cta .btn { padding: 14px 18px; font-size: 11px; letter-spacing: 0.18em; }
+  .sticky-cta { padding: 12px 16px; }
+}
+
+/* ═══════════════════════════════════ */
 /* ═══════════ CTA ═══════════ */
 /* ═══════════════════════════════════ */
 .cta-section {
@@ -676,7 +830,14 @@ footer em { color: var(--coral); font-style: normal; font-weight: 800; }
 /* ═══════════ RESPONSIVE ═══════════ */
 /* ═══════════════════════════════════ */
 @media (max-width: 960px) {
-  section { padding: 90px 24px; }
+  section { padding: 90px 20px; }
+  .narrow, .container { width: 100%; }
+  .timeline-grid { padding-left: 70px; max-width: 100%; }
+  .timeline-grid::before { left: 36px; }
+  .tl-row .time { left: -76px; width: 60px; font-size: 16px; }
+  .tl-row::before { left: -50px; width: 14px; height: 14px; border-width: 3px; }
+  .tl-row .body h4 { font-size: 24px; }
+  .sticky-cta .row { flex-wrap: nowrap; }
   .nav { padding: 14px 20px; }
   .nav .brand .txt { font-size: 12px; }
   .nav .credit { font-size: 9px; }
@@ -758,17 +919,84 @@ footer em { color: var(--coral); font-style: normal; font-weight: 800; }
   </div>
   <div class="carousel-wrap">
     <div class="carousel-scroll">
-      <img src="assets/slide-1.png" alt="Slide 1 — Cover"/>
-      <img src="assets/slide-2.png" alt="Slide 2 — Hero stat"/>
-      <img src="assets/slide-3.png" alt="Slide 3 — Bar chart"/>
-      <img src="assets/slide-4.png" alt="Slide 4 — Math impact"/>
-      <img src="assets/slide-5.png" alt="Slide 5 — Takeaway"/>
-      <img src="assets/slide-6.png" alt="Slide 6 — CTA"/>
+      <img src="assets/slide-1.png" alt="Slide 1 — Cover" loading="lazy"/>
+      <img src="assets/slide-2.png" alt="Slide 2 — Hero stat" loading="lazy"/>
+      <img src="assets/slide-3.png" alt="Slide 3 — Bar chart" loading="lazy"/>
+      <img src="assets/slide-4.png" alt="Slide 4 — Math impact" loading="lazy"/>
+      <img src="assets/slide-5.png" alt="Slide 5 — Takeaway" loading="lazy"/>
+      <img src="assets/slide-6.png" alt="Slide 6 — CTA" loading="lazy"/>
     </div>
   </div>
   <div style="text-align: center;">
     <div class="swipe-hint"><span>SWIPE TO SEE ALL 6</span><span class="arrow">→</span></div>
     <div class="caption">Instagram-ready · 1080 <em>×</em> 1350</div>
+  </div>
+</section>
+
+<!-- ═══ DAY-IN-THE-LIFE TIMELINE ═══ -->
+<section class="timeline-section">
+  <div class="head reveal">
+    <div class="eyebrow">A day on set</div>
+    <h2 style="margin-top: 22px;">Six hours. <em>Built like a film set.</em></h2>
+    <p class="lede" style="margin: 28px auto 0;">No improvising. Every minute mapped — call sheet, lighting setup, scripted batches, wardrobe transitions. Showroom-quality output without the agency overhead.</p>
+  </div>
+  <div class="timeline-grid">
+    <div class="tl-row reveal">
+      <div class="time">9:00 AM</div>
+      <div class="body">
+        <h4>Call Time · Setup</h4>
+        <div class="desc">Lighting rigged, teleprompter staged, audio levels set. You walk in to a room that's already ready.</div>
+        <div class="tags"><span class="tag-pill">Lighting</span><span class="tag-pill">Audio</span><span class="tag-pill">Wardrobe</span></div>
+      </div>
+    </div>
+    <div class="tl-row reveal d1">
+      <div class="time">10:00 AM</div>
+      <div class="body">
+        <h4>Headshots · Look #1</h4>
+        <div class="desc">Editorial portraits in the lobby. Direct, polished, brand-aligned. Fifteen frames in, we have your hero shot.</div>
+        <div class="tags"><span class="tag-pill">3 Backdrops</span><span class="tag-pill">8 Edited Photos</span></div>
+      </div>
+    </div>
+    <div class="tl-row reveal d2">
+      <div class="time">11:00 AM</div>
+      <div class="body">
+        <h4>Reels Batch #1</h4>
+        <div class="desc">Four scripted Reels — meet-the-realtor intro, market update, FAQ, lead-gen CTA. Teleprompter, multiple backdrops, one efficient batch.</div>
+        <div class="tags"><span class="tag-pill">Conf Room A & B</span><span class="tag-pill">4 Reels</span></div>
+      </div>
+    </div>
+    <div class="tl-row reveal d3">
+      <div class="time">1:00 PM</div>
+      <div class="body">
+        <h4>Lunch · Outfit Transition</h4>
+        <div class="desc">30-minute reset. Switch to Look #2. Brand check, hair touch-up, snack break. Crew resets gear for afternoon scenes.</div>
+        <div class="tags"><span class="tag-pill">Outfit #2</span></div>
+      </div>
+    </div>
+    <div class="tl-row reveal">
+      <div class="time">1:30 PM</div>
+      <div class="body">
+        <h4>Reels Batch #2</h4>
+        <div class="desc">Four more Reels — neighborhood educator, $400K showcase, credit-score myth, "should I wait" market truth. Lounge, coffee bar, courtyard.</div>
+        <div class="tags"><span class="tag-pill">Lounge & Courtyard</span><span class="tag-pill">4 Reels</span></div>
+      </div>
+    </div>
+    <div class="tl-row reveal d1">
+      <div class="time">3:00 PM</div>
+      <div class="body">
+        <h4>Lifestyle Photos · B-Roll Bank</h4>
+        <div class="desc">25+ branded clips: hands on laptop, keys handoff, walking shots, coffee moments. Plus 12 lifestyle frames. The reusable content engine.</div>
+        <div class="tags"><span class="tag-pill">12 Lifestyle</span><span class="tag-pill">4 min B-Roll</span></div>
+      </div>
+    </div>
+    <div class="tl-row reveal d2">
+      <div class="time">4:00 PM</div>
+      <div class="body">
+        <h4>Wrap · Same-Day Sneak Peek</h4>
+        <div class="desc">Pack out. Within 48 hours: one finished Reel + three best frames hit your inbox. Full delivery in 10–14 days.</div>
+        <div class="tags"><span class="tag-pill">48-hr Sneak Peek</span><span class="tag-pill">10–14 Day Delivery</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -872,6 +1100,19 @@ footer em { color: var(--coral); font-style: normal; font-weight: 800; }
   </div>
 </section>
 
+<!-- ═══ STICKY CTA — appears after hero scroll ═══ -->
+<aside class="sticky-cta" id="stickyCta" aria-label="Book content day">
+  <div class="row">
+    <div class="left">
+      <div class="label">Content Day · April 26</div>
+      <div class="value">$1,200 · $600 deposit holds the date</div>
+    </div>
+    <a class="btn" href="mailto:taylormademd@gmail.com?subject=Book%20Arena%20Content%20Day%20%E2%80%94%20April%2026&body=Hi%20Nelson%2C%20send%20the%20HoneyBook%20contract%20and%20deposit%20invoice%20%E2%80%94%20I'm%20ready%20to%20book.">
+      RESERVE THE 26TH <span class="arrow">→</span>
+    </a>
+  </div>
+</aside>
+
 <footer>
   <div class="r">
     <span>ARENA GROUP NETWORK</span>
@@ -888,6 +1129,29 @@ footer em { color: var(--coral); font-style: normal; font-weight: 800; }
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Sticky CTA appears after hero scrolled past
+  const sticky = document.getElementById('stickyCta');
+  const heroEl = document.querySelector('.hero');
+  if (sticky && heroEl) {
+    const heroObs = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) sticky.classList.remove('show');
+        else sticky.classList.add('show');
+      }
+    }, { threshold: 0.15 });
+    heroObs.observe(heroEl);
+    // Hide sticky when CTA section in view
+    const ctaSection = document.querySelector('.cta-section');
+    if (ctaSection) {
+      const ctaObs = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) sticky.classList.remove('show');
+        }
+      }, { threshold: 0.2 });
+      ctaObs.observe(ctaSection);
+    }
+  }
 
   // Sound toggle
   const vid = document.getElementById('heroReel');
