@@ -466,24 +466,27 @@
     color: var(--cream);
     justify-content: space-between;
   }
-  .cta .portrait {
+  .cta .map-bg {
     position: absolute;
-    top: 50%;
-    right: 60px;
-    transform: translateY(-50%);
-    width: 340px;
-    height: 420px;
-    border-radius: 6px;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
     overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-    z-index: 2;
-    border: 6px solid var(--cream);
   }
-  .cta .portrait img {
+  .cta .map-bg img {
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+    filter: saturate(0.8);
   }
+  .cta .map-bg::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(217,117,133,0.35) 0%, rgba(217,117,133,0.72) 100%);
+  }
+  .cta > *:not(.map-bg) { z-index: 2; }
+  .cta .top, .cta .middle, .cta .bottom { position: relative; }
   .cta::after {
     content: ''; position: absolute;
     bottom: -200px; right: -200px; width: 600px; height: 600px;
@@ -492,8 +495,8 @@
   }
   .cta .top {
     display: flex; flex-direction: column; gap: 30px;
-    z-index: 1;
-    max-width: 64%;
+    z-index: 2;
+    max-width: 100%;
   }
   .cta .top .eyebrow { color: var(--cream); }
   .cta .top h2 {
@@ -507,8 +510,8 @@
   }
   .cta .middle {
     display: flex; flex-direction: column; gap: 24px;
-    z-index: 1;
-    max-width: 64%;
+    z-index: 2;
+    max-width: 100%;
   }
   .cta .dm-box {
     background: var(--ink);
@@ -567,7 +570,7 @@
 
 <!-- ═══ SLIDE 1 · COVER ═══ -->
 <div class="slide cover" id="slide-1">
-  <div class="hero-img"><img src="dfw-neighborhood-aerial.png" alt=""></div>
+  <div class="hero-img"><img src="dfw-aerial-twilight.png" alt=""></div>
   <div class="progress"><div class="seg filled"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
   <div class="logo-block">
     <img src="AGN-logo.webp" alt="AGN">
@@ -624,7 +627,7 @@
 
 <!-- ═══ SLIDE 4 · MATH IMPACT ═══ -->
 <div class="slide math" id="slide-4">
-  <div class="bg-img"><img src="dfw-home-exterior.png" alt=""></div>
+  <div class="bg-img"><img src="dfw-home-transitional.png" alt=""></div>
   <div class="progress"><div class="seg past"></div><div class="seg past"></div><div class="seg past"></div><div class="seg filled"></div><div class="seg"></div><div class="seg"></div></div>
   <div class="eyebrow">THE REAL NUMBER</div>
   <h2>On a <em>$400K home.</em></h2>
@@ -671,7 +674,7 @@
 
 <!-- ═══ SLIDE 6 · CTA ═══ -->
 <div class="slide cta" id="slide-6">
-  <div class="portrait"><img src="arena-portrait.jpg" alt="Arena Hudson"></div>
+  <div class="map-bg"><img src="dfw-map-flatlay.png" alt=""></div>
   <div class="progress"><div class="seg past"></div><div class="seg past"></div><div class="seg past"></div><div class="seg past"></div><div class="seg past"></div><div class="seg filled"></div></div>
   <div class="top">
     <div class="eyebrow">READY WHEN YOU ARE</div>
