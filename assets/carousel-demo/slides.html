@@ -306,30 +306,178 @@
     border-left: 4px solid var(--coral);
   }
 
-  /* ───── SLIDE 4 · MATH IMPACT ───── */
-  .math { background: var(--cream); position: relative; }
-  .math .bg-img {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 0;
+  /* ───── SLIDE 4 · MATH IMPACT · THE SPLIT ───── */
+  .math {
+    background: var(--cream);
+    position: relative;
+    padding: 0;
     overflow: hidden;
   }
-  .math .bg-img img {
+  .math .progress { position: absolute; top: 40px; left: 80px; right: 80px; z-index: 10; }
+  .math .slide-num { position: absolute; top: 70px; right: 80px; z-index: 10; }
+  .math-head {
+    padding: 96px 80px 40px;
+    position: relative;
+    z-index: 4;
+  }
+  .math-head .eyebrow-split {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 22px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--coral);
+    margin-bottom: 18px;
+  }
+  .math-head h2.split-h {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 88px;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .math-head h2.split-h em { color: var(--coral); font-style: italic; }
+
+  .split-photo {
+    position: relative;
+    height: 760px;
+    overflow: hidden;
+  }
+  .split-photo img {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 55%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     object-fit: cover;
-    opacity: 1;
+    filter: grayscale(1) contrast(1.15) brightness(0.82);
   }
-  .math .bg-img::after {
+  .split-photo::before {
     content: ''; position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, var(--cream) 30%, rgba(248,243,236,0.92) 45%, rgba(248,243,236,0.1) 60%, transparent 100%);
+    top: 0; left: 0; width: 50%; height: 100%;
+    background: rgba(14,14,14,0.55);
+    mix-blend-mode: multiply;
+    z-index: 2;
   }
-  .math > *:not(.bg-img) { z-index: 2; }
-  .math > .eyebrow, .math > h2, .math > .panels, .math > .callout { position: relative; }
+  .split-photo::after {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 50%; height: 100%;
+    background: rgba(217,117,133,0.55);
+    mix-blend-mode: multiply;
+    z-index: 2;
+  }
+  .split-seam {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 5px;
+    background: var(--coral);
+    transform: translateX(-50%);
+    z-index: 5;
+  }
+  .split-side {
+    position: absolute;
+    top: 0; bottom: 0; width: 50%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 0 40px;
+    z-index: 6;
+    color: var(--cream);
+    text-align: center;
+  }
+  .split-side.left { left: 0; }
+  .split-side.right { right: 0; }
+  .split-tag {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 24px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 100px;
+    margin-bottom: 26px;
+    background: rgba(14,14,14,0.55);
+    color: var(--cream);
+    border: 2px solid rgba(248,243,236,0.4);
+  }
+  .split-side.right .split-tag {
+    background: rgba(248,243,236,0.9);
+    color: var(--coral-dark);
+    border-color: var(--cream);
+  }
+  .split-amount {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 180px;
+    color: var(--cream);
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    text-shadow: 6px 8px 0 rgba(14,14,14,0.45);
+  }
+  .split-unit {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    font-weight: 600;
+    margin-top: 14px;
+    opacity: 0.9;
+  }
+  .vs-disc {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--coral);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 52px;
+    color: var(--cream);
+    z-index: 7;
+    box-shadow: 0 10px 28px rgba(14,14,14,0.25);
+    border: 4px solid var(--cream);
+  }
+
+  .split-callout {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 44px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    z-index: 4;
+  }
+  .split-callout .big-n {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 76px;
+    color: var(--coral);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .split-callout .note {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    color: rgba(248,243,236,0.88);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .math .brand-bar {
+    position: relative;
+    bottom: auto; left: auto; right: auto;
+    background: var(--cream);
+    padding: 28px 80px;
+    display: flex; justify-content: space-between;
+    z-index: 4;
+    margin: 0;
+  }
   .math h2 {
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -621,37 +769,37 @@
   <div class="slide-num">03 / 06</div>
 </div>
 
-<!-- ═══ SLIDE 4 · MATH IMPACT ═══ -->
+<!-- ═══ SLIDE 4 · MATH IMPACT · THE SPLIT ═══ -->
 <div class="slide math" id="slide-4">
-  <div class="bg-img"><img src="dfw-home-transitional.png" alt=""></div>
   <div class="progress"><div class="seg past"></div><div class="seg past"></div><div class="seg past"></div><div class="seg filled"></div><div class="seg"></div><div class="seg"></div></div>
-  <div class="eyebrow">THE REAL NUMBER</div>
-  <h2>On a <em>$400K home.</em></h2>
-  <div class="panels">
-    <div class="panel">
-      <div class="top-label">@ 1%</div>
-      <div class="amount">$333</div>
-      <div class="unit">per month in tax</div>
-    </div>
-    <div class="vs">vs</div>
-    <div class="panel accent">
-      <div class="top-label">@ 2.5%</div>
-      <div class="amount">$833</div>
-      <div class="unit">per month in tax</div>
-    </div>
+  <div class="slide-num">04 / 06</div>
+  <div class="math-head">
+    <div class="eyebrow-split">DFW Property Tax Impact</div>
+    <h2 class="split-h">On a <em>$400K home.</em></h2>
   </div>
-  <div class="callout">
-    <div class="icon">=</div>
-    <div class="txt">
-      <strong>+ $6,000 / year</strong> you need to plan for — or<br/>
-      $500 more in your monthly payment you didn't know about.
+  <div class="split-photo">
+    <img src="dfw-home-transitional.png" alt="">
+    <div class="split-seam"></div>
+    <div class="split-side left">
+      <div class="split-tag">@ 1%</div>
+      <div class="split-amount">$333</div>
+      <div class="split-unit">per month in tax</div>
     </div>
+    <div class="split-side right">
+      <div class="split-tag">@ 2.5%</div>
+      <div class="split-amount">$833</div>
+      <div class="split-unit">per month in tax</div>
+    </div>
+    <div class="vs-disc">vs</div>
+  </div>
+  <div class="split-callout">
+    <div class="big-n">+ $6,000 / year</div>
+    <div class="note">or $500 more on your monthly payment — that you didn't know about.</div>
   </div>
   <div class="brand-bar">
     <div class="logo"><div class="logo-text">AGN · ARENA GROUP NETWORK</div></div>
     <div>DFW REALTOR</div>
   </div>
-  <div class="slide-num">04 / 06</div>
 </div>
 
 <!-- ═══ SLIDE 5 · TAKEAWAY ═══ -->
