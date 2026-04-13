@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Arena Hudson · Content System Proposal · Taylormade Creative</title>
+<meta name="description" content="A content system built for Arena Hudson — DFW Realtor. Content Day April 26, 2026."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral: #D97585;
+  --coral-dark: #B8546A;
+  --cream: #F8F3EC;
+  --cream-2: #F0E8DC;
+  --ink: #0E0E0E;
+  --ink-2: #1A1A1A;
+  --muted: #6B5A52;
+  --rule: rgba(26,26,26,0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  font-size: 17px;
+  line-height: 1.5;
+}
+img, video { max-width: 100%; display: block; }
+
+/* ─── Reveal animations ─── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 900ms cubic-bezier(.16,1,.3,1), transform 900ms cubic-bezier(.16,1,.3,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 120ms; }
+.reveal.d2 { transition-delay: 240ms; }
+.reveal.d3 { transition-delay: 360ms; }
+
+/* ─── Nav ─── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 48px;
+  background: rgba(248,243,236,0.88);
+  backdrop-filter: saturate(160%) blur(14px);
+  z-index: 50;
+  border-bottom: 1px solid var(--rule);
+}
+.nav .brand { display: flex; align-items: center; gap: 12px; }
+.nav .brand img { width: 40px; height: auto; }
+.nav .brand .txt {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  font-size: 15px;
+  color: var(--coral);
+}
+.nav .credit {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.nav .credit em { color: var(--ink); font-style: normal; font-weight: 800; }
+
+/* ─── Sections ─── */
+section {
+  padding: 140px 48px;
+  position: relative;
+}
+.container { max-width: 1280px; margin: 0 auto; }
+.narrow { max-width: 920px; margin: 0 auto; }
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--coral);
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.eyebrow::before {
+  content: ''; display: block;
+  width: 36px; height: 2px;
+  background: var(--coral);
+}
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+h1 {
+  font-size: clamp(64px, 9vw, 140px);
+  font-weight: 900;
+  line-height: 0.94;
+  font-style: italic;
+}
+h1 em { color: var(--coral); font-style: italic; }
+h2 {
+  font-size: clamp(42px, 5.6vw, 84px);
+  font-weight: 900;
+  line-height: 1.02;
+  font-style: italic;
+  margin-top: 18px;
+}
+h2 em { color: var(--coral); font-style: italic; }
+h3 {
+  font-size: clamp(26px, 2.6vw, 38px);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.1;
+}
+p, li { color: var(--ink-2); line-height: 1.6; font-size: 19px; }
+p.lede { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 720px; font-weight: 400; }
+
+/* ─── Hero ─── */
+.hero {
+  min-height: 100vh;
+  padding-top: 180px;
+  background:
+    radial-gradient(circle at 85% -5%, rgba(217,117,133,0.22) 0%, transparent 45%),
+    radial-gradient(circle at -5% 95%, rgba(217,117,133,0.12) 0%, transparent 40%),
+    var(--cream);
+  display: flex; align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.hero::before {
+  content: ''; position: absolute;
+  top: -240px; right: -240px; width: 740px; height: 740px;
+  border: 120px solid var(--coral);
+  border-radius: 50%; opacity: 0.1;
+}
+.hero .container { position: relative; z-index: 2; }
+.hero .tag {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+.hero .tag .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); }
+.hero h1 { max-width: 1100px; }
+.hero .sub {
+  font-size: 26px; line-height: 1.5;
+  color: var(--muted); font-weight: 400;
+  margin-top: 40px; max-width: 720px;
+}
+.hero .meta {
+  display: flex; gap: 48px; margin-top: 64px; flex-wrap: wrap;
+}
+.hero .meta .item {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.hero .meta .label {
+  font-size: 11px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--muted); font-weight: 700;
+}
+.hero .meta .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--ink); font-style: italic;
+}
+.hero .scroll-cue {
+  position: absolute; bottom: 44px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--muted);
+  font-weight: 700;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.hero .scroll-cue .line {
+  width: 1px; height: 50px;
+  background: var(--coral);
+  animation: drop 2s cubic-bezier(.16,1,.3,1) infinite;
+  transform-origin: top;
+}
+@keyframes drop {
+  0%,100% { transform: scaleY(0.3); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ─── Demo Video Section ─── */
+.demo {
+  padding-top: 160px; padding-bottom: 160px;
+  background: var(--ink);
+  color: var(--cream);
+  position: relative;
+}
+.demo .eyebrow { color: var(--coral); }
+.demo .eyebrow::before { background: var(--coral); }
+.demo h2 { color: var(--cream); }
+.demo p.lede { color: rgba(248,243,236,0.7); }
+.demo .video-wrap {
+  margin: 80px auto 0;
+  max-width: 480px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(217,117,133,0.2);
+}
+.demo video {
+  width: 100%; display: block;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+  background: #000;
+}
+.demo .proof {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 80px;
+}
+.demo .proof .item {
+  text-align: center;
+  padding: 28px 20px;
+  border: 1px solid rgba(217,117,133,0.25);
+  border-radius: 4px;
+}
+.demo .proof .n {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 56px;
+  color: var(--coral);
+  line-height: 1;
+}
+.demo .proof .lbl {
+  margin-top: 14px;
+  font-size: 12px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(248,243,236,0.7);
+  font-weight: 700;
+}
+
+/* ─── Pitch ─── */
+.pitch { background: var(--cream); padding: 160px 48px; }
+.pitch .quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.25;
+  color: var(--ink);
+  max-width: 960px;
+  margin: 60px auto 0;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+.pitch .quote em { color: var(--coral); }
+.pitch .quote::before,
+.pitch .quote::after {
+  content: '"';
+  display: inline-block;
+  font-family: 'Playfair Display', serif;
+  font-size: 100px;
+  color: var(--coral);
+  line-height: 0.4;
+  vertical-align: -0.1em;
+  opacity: 0.4;
+}
+.pitch .quote::before { margin-right: 12px; }
+.pitch .quote::after { margin-left: 12px; }
+
+/* ─── Carousel ─── */
+.carousel-section {
+  background: var(--cream-2);
+  padding: 160px 48px;
+}
+.carousel-section .head { text-align: center; margin-bottom: 80px; }
+.carousel-section .eyebrow { justify-content: center; }
+.carousel-scroll {
+  display: flex; gap: 28px;
+  overflow-x: auto;
+  padding: 0 48px 40px;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: var(--coral) transparent;
+  scrollbar-width: thin;
+}
+.carousel-scroll::-webkit-scrollbar { height: 8px; }
+.carousel-scroll::-webkit-scrollbar-track { background: transparent; }
+.carousel-scroll::-webkit-scrollbar-thumb { background: var(--coral); border-radius: 4px; }
+.carousel-scroll img {
+  flex-shrink: 0;
+  width: 420px;
+  height: 525px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 18px 48px rgba(26,26,26,0.14);
+  scroll-snap-align: start;
+  transition: transform 300ms;
+}
+.carousel-scroll img:hover { transform: translateY(-6px); }
+.carousel-section .caption {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.carousel-section .caption em { color: var(--coral); font-style: italic; font-weight: 600; }
+
+/* ─── Content Day ─── */
+.content-day {
+  background: var(--cream);
+  padding: 160px 48px;
+}
+.content-day .header {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: end;
+  margin-bottom: 80px;
+}
+.content-day .header .right {
+  text-align: right;
+}
+.content-day .day-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 240px;
+  color: var(--coral);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  opacity: 0.85;
+}
+.content-day .day-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-top: 18px;
+}
+.deliverables {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  margin-top: 60px;
+}
+.deliver {
+  background: #fff;
+  padding: 40px 32px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  transition: transform 300ms, box-shadow 300ms, border-color 300ms;
+}
+.deliver:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 54px rgba(26,26,26,0.12);
+  border-color: var(--coral);
+}
+.deliver .n {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--coral);
+}
+.deliver .big {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 72px;
+  color: var(--ink);
+  line-height: 1;
+  margin-top: 14px;
+  letter-spacing: -0.03em;
+}
+.deliver .lbl {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+}
+.deliver .detail {
+  margin-top: 18px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+.location-card {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 64px;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 6px;
+}
+.location-card h3 { color: var(--cream); }
+.location-card .small-label {
+  font-size: 12px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--coral);
+  font-weight: 700; margin-bottom: 18px;
+}
+.location-card p { color: rgba(248,243,236,0.75); font-size: 17px; }
+.location-card .pills {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px;
+}
+.location-card .pill {
+  font-size: 13px;
+  padding: 8px 16px;
+  border: 1px solid rgba(217,117,133,0.5);
+  color: var(--coral);
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.location-card .run {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.location-card .run .row {
+  display: grid; grid-template-columns: 110px 1fr; gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(248,243,236,0.12);
+  font-size: 15px;
+}
+.location-card .run .row:last-child { border-bottom: none; }
+.location-card .run .t {
+  font-family: 'Space Grotesk', monospace;
+  color: var(--coral);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.location-card .run .d {
+  color: rgba(248,243,236,0.9);
+  font-weight: 500;
+}
+
+/* ─── Monthly Tease ─── */
+.monthly {
+  padding: 160px 48px;
+  background:
+    radial-gradient(circle at 75% 30%, rgba(217,117,133,0.15) 0%, transparent 45%),
+    var(--cream);
+  text-align: center;
+}
+.monthly .eyebrow { justify-content: center; }
+.monthly .sig {
+  margin-top: 70px;
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 22px 40px;
+  background: var(--ink); color: var(--cream);
+  font-size: 13px; letter-spacing: 0.3em;
+  text-transform: uppercase; font-weight: 700;
+  border-radius: 4px;
+}
+.monthly .sig .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+
+/* ─── Investment / Terms ─── */
+.invest {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 160px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.invest::before {
+  content: ''; position: absolute;
+  top: -320px; left: -320px; width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(217,117,133,0.22) 0%, transparent 60%);
+}
+.invest h2 { color: var(--cream); }
+.invest .eyebrow { color: var(--coral); }
+.invest .eyebrow::before { background: var(--coral); }
+.invest .price-block {
+  display: grid; grid-template-columns: 2fr 1fr; gap: 80px;
+  margin-top: 80px;
+  align-items: start;
+  position: relative; z-index: 2;
+}
+.invest .line {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: rgba(248,243,236,0.9);
+  padding: 24px 0;
+  display: grid; grid-template-columns: 1fr auto; gap: 24px;
+  border-bottom: 1px solid rgba(248,243,236,0.12);
+}
+.invest .line .k { color: rgba(248,243,236,0.6); letter-spacing: 0.04em; }
+.invest .line .v {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+}
+.invest .total {
+  margin-top: 20px;
+  padding: 30px 0;
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-top: 2px solid var(--coral);
+  border-bottom: 2px solid var(--coral);
+}
+.invest .total .k {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+.invest .total .v {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 84px;
+  color: var(--cream);
+  letter-spacing: -0.03em;
+}
+.invest .terms {
+  padding: 36px;
+  background: rgba(248,243,236,0.04);
+  border: 1px solid rgba(217,117,133,0.25);
+  border-radius: 4px;
+}
+.invest .terms h3 { color: var(--cream); font-size: 22px; }
+.invest .terms ul { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 14px; }
+.invest .terms li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(248,243,236,0.85);
+  padding-left: 22px;
+  position: relative;
+}
+.invest .terms li::before {
+  content: ''; position: absolute;
+  left: 0; top: 8px;
+  width: 8px; height: 8px;
+  background: var(--coral);
+  border-radius: 50%;
+}
+
+/* ─── CTA ─── */
+.cta {
+  background: var(--coral);
+  padding: 160px 48px;
+  text-align: center;
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.cta::after {
+  content: ''; position: absolute;
+  bottom: -280px; right: -280px; width: 760px; height: 760px;
+  border: 100px solid rgba(248,243,236,0.16);
+  border-radius: 50%;
+}
+.cta h2 { color: var(--cream); font-size: clamp(54px, 7vw, 110px); max-width: 900px; margin: 0 auto; }
+.cta p { color: rgba(248,243,236,0.92); font-size: 21px; max-width: 620px; margin: 34px auto 0; }
+.cta .actions {
+  margin-top: 60px;
+  display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+  position: relative; z-index: 2;
+}
+.cta .btn {
+  display: inline-flex; align-items: center; gap: 16px;
+  padding: 24px 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; letter-spacing: 0.3em;
+  text-transform: uppercase; font-weight: 800;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: transform 200ms, box-shadow 200ms;
+}
+.cta .btn.primary {
+  background: var(--ink); color: var(--cream);
+}
+.cta .btn.primary:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,0.3); }
+.cta .btn.ghost {
+  color: var(--cream);
+  border: 1px solid rgba(248,243,236,0.55);
+}
+.cta .btn.ghost:hover { background: rgba(248,243,236,0.08); }
+.cta .arrow { font-size: 18px; }
+
+/* ─── Footer ─── */
+footer {
+  background: var(--ink);
+  color: rgba(248,243,236,0.6);
+  padding: 60px 48px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+footer .r {
+  display: flex; justify-content: center; align-items: center; gap: 20px;
+  flex-wrap: wrap;
+}
+footer .dot { width: 4px; height: 4px; background: var(--coral); border-radius: 50%; }
+footer em { color: var(--coral); font-style: normal; font-weight: 800; }
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  section { padding: 100px 28px; }
+  .nav { padding: 16px 24px; }
+  .hero { padding-top: 140px; }
+  .content-day .header { grid-template-columns: 1fr; gap: 40px; }
+  .content-day .header .right { text-align: left; }
+  .deliverables { grid-template-columns: repeat(2, 1fr); }
+  .location-card { grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+  .invest .price-block { grid-template-columns: 1fr; gap: 40px; }
+  .demo .proof { grid-template-columns: 1fr; }
+  .carousel-scroll { padding: 0 28px 40px; }
+  .carousel-scroll img { width: 300px; height: 375px; }
+  .hero .meta { gap: 28px; }
+  .content-day .day-num { font-size: 160px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand">
+    <img src="assets/AGN-logo.webp" alt="AGN">
+    <span class="txt">ARENA GROUP NETWORK</span>
+  </div>
+  <div class="credit">Crafted by <em>Taylormade Creative</em></div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="container">
+    <div class="tag reveal"><div class="dot"></div> FOR ARENA HUDSON · DFW REALTOR</div>
+    <h1 class="reveal d1">A content system<br/><em>built</em> for you.</h1>
+    <p class="sub reveal d2">One day on set. Thirty-plus days of premium content. A brand presence worthy of the listings you close.</p>
+    <div class="meta reveal d3">
+      <div class="item"><div class="label">Content Day</div><div class="value">Sunday · April 26</div></div>
+      <div class="item"><div class="label">Location</div><div class="value">Alta Landing · Fort Worth</div></div>
+      <div class="item"><div class="label">Delivery</div><div class="value">10 – 14 Days</div></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div>SCROLL</div><div class="line"></div></div>
+</section>
+
+<!-- ═══ DEMO VIDEO ═══ -->
+<section class="demo">
+  <div class="narrow">
+    <div class="eyebrow reveal">Live demo · generated this week</div>
+    <h2 class="reveal d1">This is <em>you</em> —<br/>made without you on set.</h2>
+    <p class="lede reveal d2" style="margin-top: 28px;">A 39-second educational Reel, captioned, chapter-carded, brand-perfect. Built from a short clip of you and your logo. Imagine posting three of these every week.</p>
+    <div class="video-wrap reveal d3">
+      <video controls playsinline preload="metadata" poster="assets/slide-2.png">
+        <source src="assets/arena-reel.mp4" type="video/mp4"/>
+      </video>
+    </div>
+    <div class="proof">
+      <div class="item reveal"><div class="n">39s</div><div class="lbl">Runtime</div></div>
+      <div class="item reveal d1"><div class="n">8</div><div class="lbl">Motion Cues</div></div>
+      <div class="item reveal d2"><div class="n">100%</div><div class="lbl">On Brand</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PITCH ═══ -->
+<section class="pitch">
+  <div class="narrow">
+    <div style="text-align: center;" class="reveal">
+      <div class="eyebrow" style="justify-content: center;">The Pitch</div>
+    </div>
+    <div class="quote reveal d1">
+      Buyers don't hire the realtor they saw <em>once</em>. They hire the one showing up every week with answers — and a brand that looks like the homes you're selling.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAROUSEL PREVIEW ═══ -->
+<section class="carousel-section">
+  <div class="head reveal">
+    <div class="eyebrow">Preview · educational carousel</div>
+    <h2 style="margin-top: 22px;">Content that <em>teaches</em><br/>— and converts.</h2>
+    <p class="lede" style="margin: 28px auto 0;">A 6-slide educational carousel built this week — charts, math, clean typography, your brand throughout. The kind of post that gets saved, shared, and ranks in search.</p>
+  </div>
+  <div class="carousel-scroll">
+    <img src="assets/slide-1.png" alt="Slide 1 — Cover"/>
+    <img src="assets/slide-2.png" alt="Slide 2 — Hero stat"/>
+    <img src="assets/slide-3.png" alt="Slide 3 — Bar chart"/>
+    <img src="assets/slide-4.png" alt="Slide 4 — Math impact"/>
+    <img src="assets/slide-5.png" alt="Slide 5 — Takeaway"/>
+    <img src="assets/slide-6.png" alt="Slide 6 — CTA"/>
+  </div>
+  <div class="caption reveal">Drag to scroll · 6 slides · Instagram-ready 1080 <em>×</em> 1350</div>
+</section>
+
+<!-- ═══ CONTENT DAY ═══ -->
+<section class="content-day">
+  <div class="container">
+    <div class="header">
+      <div class="reveal">
+        <div class="eyebrow">The Content Day</div>
+        <h2>One day, <em>one location,</em> thirty days of content.</h2>
+        <p style="margin-top: 28px; max-width: 560px; color: var(--muted);">Six hours at Alta Landing. Teleprompter, cinema lighting, pro audio, three outfits, six-plus backdrops in one building. Zero travel, maximum variety.</p>
+      </div>
+      <div class="right reveal d1">
+        <div class="day-num">04·26</div>
+        <div class="day-label">Sunday · 2026</div>
+      </div>
+    </div>
+
+    <div class="deliverables">
+      <div class="deliver reveal"><div class="n">01</div><div class="big">8</div><div class="lbl">Edited Reels</div><div class="detail">15–60 seconds · teleprompter-scripted · captions, music, branded lower thirds</div></div>
+      <div class="deliver reveal d1"><div class="n">02</div><div class="big">20</div><div class="lbl">Edited Photos</div><div class="detail">Headshots · lifestyle · "at work" · carousel-planned · 3 outfit looks</div></div>
+      <div class="deliver reveal d2"><div class="n">03</div><div class="big">4 min</div><div class="lbl">B-Roll Bank</div><div class="detail">25+ clips · color-graded · organized · ready to pair with trending audio for months</div></div>
+      <div class="deliver reveal d3"><div class="n">04</div><div class="big">3</div><div class="lbl">Outfit Looks</div><div class="detail">Each outfit = ~10 days of fresh feed content before repeat</div></div>
+    </div>
+
+    <div class="location-card reveal">
+      <div>
+        <div class="small-label">The Location</div>
+        <h3>Alta Landing Apartments · Fort Worth</h3>
+        <p>Shot across the amenity spaces — lobby, coffee lounge, conference rooms, co-work nook, and courtyard. Six-plus distinct backdrops without ever leaving one building.</p>
+        <div class="pills">
+          <span class="pill">Lobby</span>
+          <span class="pill">Coffee Lounge</span>
+          <span class="pill">Conference A</span>
+          <span class="pill">Conference B</span>
+          <span class="pill">Co-Work</span>
+          <span class="pill">Courtyard</span>
+        </div>
+      </div>
+      <div class="run">
+        <div class="small-label" style="margin-bottom: 14px;">Run of day</div>
+        <div class="row"><div class="t">HR 01</div><div class="d">Setup · Look #1 · headshots</div></div>
+        <div class="row"><div class="t">HR 02–03</div><div class="d">Scripted video batch · 4 Reels</div></div>
+        <div class="row"><div class="t">HR 04</div><div class="d">Lunch · outfit change</div></div>
+        <div class="row"><div class="t">HR 05</div><div class="d">Video batch #2 · 4 Reels</div></div>
+        <div class="row"><div class="t">HR 06</div><div class="d">Lifestyle photos · B-roll bank</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MONTHLY TEASE ═══ -->
+<section class="monthly">
+  <div class="narrow">
+    <div class="reveal"><div class="eyebrow">After April 26</div></div>
+    <h2 class="reveal d1" style="margin-top: 22px;">One shoot buys you <em>30 days.</em></h2>
+    <p class="lede reveal d2" style="margin: 32px auto 0;">The realtors closing two and three extra deals a year from social aren't shooting once — they're showing up weekly. A monthly content system is how you stop chasing leads and start having them slide into your DMs on autopilot.</p>
+    <div class="sig reveal d3"><div class="dot"></div> Let's talk monthly after your April 26 shoot.</div>
+  </div>
+</section>
+
+<!-- ═══ INVESTMENT ═══ -->
+<section class="invest">
+  <div class="container">
+    <div class="reveal"><div class="eyebrow">Investment</div></div>
+    <h2 class="reveal d1">Your content day.</h2>
+    <div class="price-block">
+      <div class="reveal d2">
+        <div class="line"><div class="k">Content Day · 6 hours on location</div><div class="v">—</div></div>
+        <div class="line"><div class="k">8 Edited Reels</div><div class="v">—</div></div>
+        <div class="line"><div class="k">20 Edited Photos</div><div class="v">—</div></div>
+        <div class="line"><div class="k">4 min B-Roll Bank · organized + color-graded</div><div class="v">—</div></div>
+        <div class="line"><div class="k">3 Outfit Looks · 6+ Backdrops</div><div class="v">—</div></div>
+        <div class="line"><div class="k">48-hour sneak peek · 2 rounds of revisions</div><div class="v">—</div></div>
+        <div class="total"><div class="k">Total Investment</div><div class="v">$1,200</div></div>
+      </div>
+      <div class="terms reveal d3">
+        <h3 style="font-family: 'Inter', sans-serif; font-style: normal; font-size: 14px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 800; color: var(--coral);">Terms</h3>
+        <ul>
+          <li>50% deposit to lock the date ($600)</li>
+          <li>50% balance due shoot day ($600)</li>
+          <li>Sneak peek in 48 hours</li>
+          <li>Full delivery in 10–14 business days</li>
+          <li>2 rounds of revisions on video</li>
+          <li>Reschedules allowed once with 72-hour notice</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta">
+  <h2 class="reveal">Let's build you a <em>brand</em> that closes.</h2>
+  <p class="reveal d1">Reply, DM, or text when you're ready. I'll send the HoneyBook contract and deposit invoice — we'll hold the 26th.</p>
+  <div class="actions reveal d2">
+    <a class="btn primary" href="mailto:taylormademd@gmail.com?subject=Arena%20Content%20Day%20%E2%80%94%20April%2026&body=Hi%20Nelson%2C%20I'm%20ready%20to%20book%20the%20April%2026%20content%20day.%20Send%20me%20the%20HoneyBook%20contract%20and%20deposit%20invoice.">
+      BOOK THE 26TH <span class="arrow">→</span>
+    </a>
+    <a class="btn ghost" href="sms:+18177071291">TEXT NELSON</a>
+  </div>
+</section>
+
+<footer>
+  <div class="r">
+    <span>ARENA GROUP NETWORK</span>
+    <div class="dot"></div>
+    <span>PROPOSAL · APRIL 2026</span>
+    <div class="dot"></div>
+    <span>CRAFTED BY <em>TAYLORMADE CREATIVE</em></span>
+  </div>
+</footer>
+
+<script>
+  // Intersection reveal
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
